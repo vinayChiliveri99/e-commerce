@@ -1,28 +1,33 @@
-import { AppBar, InputBase, MenuItem, Select } from '@mui/material';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import {
+  AppBar,
+  InputBase,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import './header.css';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllCategoriesRequest } from '../actions/categoriesActions';
+import { Search } from '@mui/icons-material';
 
 function Header() {
-  const [category, setCategory] = useState('');
-  const [allCategories, setAllCategories] = useState([]);
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
 
-  const products = useSelector(
-    (state) => state.productsReducer.products
+  const categories = useSelector(
+    (state) => state.categoriesReducer.categories
   );
 
-  useEffect(() => {
-    if (products) {
-      const categories = products.map((ele) => ele.category.name);
-      setAllCategories([...new Set(categories)]);
-    }
-  }, [products]);
+  console.log('categories', categories);
 
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
-  };
+  useEffect(() => {
+    dispatch(fetchAllCategoriesRequest());
+  }, [dispatch]);
+
+  console;
 
   return (
     <div>
@@ -36,26 +41,6 @@ function Header() {
       >
         <div className="header">
           <h3>store</h3>
-          <div>
-            <SearchOutlinedIcon color="primary" />
-            <InputBase
-              placeholder="Search..."
-              inputProps={{ 'aria-label': 'search' }}
-            />
-            <Select
-              value={category}
-              onChange={handleCategoryChange}
-              displayEmpty
-              inputProps={{ 'aria-label': 'category' }}
-            >
-              <MenuItem value="">Category</MenuItem>
-              {allCategories.map((ele) => (
-                <MenuItem key={ele} value={ele}>
-                  {ele}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
           <p>
             <ShoppingBagIcon />
           </p>
