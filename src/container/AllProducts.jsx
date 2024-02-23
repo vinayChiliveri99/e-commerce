@@ -45,16 +45,19 @@ function AllProducts() {
     }
   }, [selectedCategory, dispatch]);
 
-  const skeletons = Array.from({ length: 10 }, (_, i) => (
-    <Skeleton
-      key={i}
-      variant="rectangular"
-      width={250}
-      height={370}
-      animation="wave"
-      style={{ borderRadius: '10px' }}
-    />
-  ));
+  const skeletons = [];
+  for (let i = 0; i < 10; i++) {
+    skeletons.push(
+      <Skeleton
+        key={i}
+        variant="rectangular"
+        width={250}
+        height={370}
+        animation="wave"
+        style={{ borderRadius: '10px' }}
+      />
+    );
+  }
 
   return (
     <div className="all-products-container">

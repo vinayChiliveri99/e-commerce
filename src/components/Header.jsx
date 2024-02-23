@@ -69,6 +69,7 @@ function Header() {
               onChange={handleCategoryChange}
               displayEmpty
               inputProps={{ 'aria-label': 'category' }}
+              style={{ border: 'none' }}
             >
               <MenuItem value="">Categories</MenuItem>
               {categories &&
