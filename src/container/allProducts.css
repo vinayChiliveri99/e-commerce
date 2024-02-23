@@ -1,0 +1,20 @@
+.all-products-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 70px 10px 10px 10px;
+}
+
+.item-card-container {
+  padding: 10px;
+  margin: 10px;
+  width: 250px;
+}
+
+.skeletons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin: 20px;
+}
