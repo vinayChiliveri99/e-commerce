@@ -8,22 +8,38 @@ import './itemCard.css';
 import { useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Rating from '@mui/material/Rating';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSingleProductRequest } from '../actions/productActions';
+import { addToCart } from '../actions/addToCartActions';
 
 function ItemCard(props) {
   const { ele } = props;
-  const { title, category, images, price } = ele;
+  const { title, category, images, price, id } = ele;
   const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (element) => {
     console.log('cart clicked');
+    console.log(element);
+    dispatch(addToCart(element));
   };
+
+  const handleProductDetailClick = (id) => {
+    dispatch(fetchSingleProductRequest(id));
+    navigate(`/product/${id}`);
+  };
+
+  const cart = useSelector((state) => state.addToCartReducer.cart);
+  console.log('from store', cart);
 
   return (
     <>
       <Card className="individual-card">
         <CardActionArea
           className="item-card"
-          onClick={() => console.log('card clicked')}
+          onClick={() => handleProductDetailClick(id)}
         >
           <CardMedia
             component="img"
@@ -58,7 +74,7 @@ function ItemCard(props) {
               <Tooltip title="Add to cart">
                 <ShoppingCartIcon
                   className="cart-icon"
-                  onClick={handleAddToCart}
+                  onClick={() => handleAddToCart(ele)}
                 />
               </Tooltip>
             </span>

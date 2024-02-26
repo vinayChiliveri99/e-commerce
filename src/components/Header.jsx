@@ -10,10 +10,12 @@ import {
   fetchAllProductsRequest,
 } from '../actions/productActions';
 import { searchByQuery } from '../actions/searchActions';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState('');
+  const navigate = useNavigate();
 
   const categories = useSelector(
     (state) => state.categoriesReducer.categories
@@ -53,7 +55,12 @@ function Header() {
         }}
       >
         <div className="header">
-          <h3>store</h3>
+          <h3
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/')}
+          >
+            store
+          </h3>
           <div className="search-filter">
             <div>
               <SearchIcon />
